@@ -8,20 +8,27 @@
 <body>
     <h1>Streay Chat Messages</h1>
     <div id="messages"></div>
+    <p id="error-message" style="color: red;"></p>
 
     <script>
         async function loadMessages() {
             try {
                 const response = await fetch('http://104.248.90.120:5000/api/messages');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const messages = await response.json();
 
                 const messagesContainer = document.getElementById('messages');
+                messagesContainer.innerHTML = ''; // Önceki içerikleri temizle
+
                 messages.forEach(msg => {
                     const messageDiv = document.createElement('div');
                     messageDiv.innerHTML = `<strong>${msg.sender}:</strong> ${msg.message} <em>(${msg.timestamp})</em>`;
                     messagesContainer.appendChild(messageDiv);
                 });
             } catch (error) {
+                document.getElementById('error-message').textContent = `Error: ${error.message}`;
                 console.error('Error loading messages:', error);
             }
         }
