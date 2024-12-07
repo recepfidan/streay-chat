@@ -12,8 +12,8 @@
 
     <script>
         async function loadMessages() {
-            try {
-                const response = await fetch('https://api.streay.com:5000/api/messages');
+            try 
+            const response = await fetch('https://api.streay.com/api/messages');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
