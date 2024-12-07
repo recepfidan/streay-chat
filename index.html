@@ -1,1 +1,32 @@
-const response = await fetch('http://104.248.90.120:5000/api/messages');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streay Chat</title>
+</head>
+<body>
+    <h1>Streay Chat Messages</h1>
+    <div id="messages"></div>
+
+    <script>
+        async function loadMessages() {
+            try {
+                const response = await fetch('http://104.248.90.120:5000/api/messages');
+                const messages = await response.json();
+
+                const messagesContainer = document.getElementById('messages');
+                messages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.innerHTML = `<strong>${msg.sender}:</strong> ${msg.message} <em>(${msg.timestamp})</em>`;
+                    messagesContainer.appendChild(messageDiv);
+                });
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        loadMessages();
+    </script>
+</body>
+</html>
