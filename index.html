@@ -13,7 +13,7 @@
     <script>
         async function loadMessages() {
             try 
-                const response = await fetch('http://streay.com/api/messages');
+                const response = await fetch('https://streay.com/api/messages');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
